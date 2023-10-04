@@ -1,0 +1,486 @@
+
+
+
+ARM Macro Assembler    Page 1 Lab 4 Exercise 3 Writing Memory Access Instructions
+
+
+    1 00000000                 TTL              Lab 4 Exercise 3 Writing Memory
+ Access Instructions
+    2 00000000         ;*******************************************************
+                       ********
+    3 00000000         ;This file provides some pre-defined assembly instructio
+                       ns that
+    4 00000000         ;students can add to in order to perform simple memory a
+                       ccess tasks.
+    5 00000000         ; //By A. Mason, Aug 2015//
+    6 00000000         ;*******************************************************
+                       ********
+    7 00000000         ;Assembler directives
+    8 00000000                 THUMB
+    9 00000000         ;*******************************************************
+                       ********
+   10 00000000         ;EQUates
+   11 00000000         ;Vectors
+   12 00000000 000000C0 
+                       VECTOR_TABLE_SIZE
+                               EQU              0x000000C0  ;KL25Z
+   13 00000000 00000004 
+                       VECTOR_SIZE
+                               EQU              4           ;Bytes per vector
+   14 00000000         ;Memory
+   15 00000000 00000100 
+                       SSTACK_SIZE
+                               EQU              0x00000100
+   16 00000000         ;NVIC
+   17 00000000 E000E180 
+                       ICER    EQU              0xE000E180
+   18 00000000         ;*******************************************************
+                       ***************
+   19 00000000         ;Vector Table Mapped to Address 0 at Reset
+   20 00000000         ;Linker requires __Vectors to be exported
+   21 00000000                 AREA             RESET, DATA, READONLY
+   22 00000000                 EXPORT           __Vectors
+   23 00000000         __Vectors
+   24 00000000 00000000        DCD              SP_INIT     ;stack pointer valu
+                                                            e when stack is emp
+                                                            ty
+   25 00000004 00000000        DCD              Reset_Handler ;reset vector
+   26 00000008 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 2 Lab 4 Exercise 3 Writing Memory Access Instructions
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00               SPACE            (VECTOR_TABLE_SIZE - (2 * VECTO
+R_SIZE))
+   27 000000C0                 ALIGN
+   28 000000C0         ;*******************************************************
+                       ***************
+   29 000000C0                 AREA             RAM,DATA,READWRITE
+   30 00000000         ;Allocate system stack
+   31 00000000 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 3 Lab 4 Exercise 3 Writing Memory Access Instructions
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 4 Lab 4 Exercise 3 Writing Memory Access Instructions
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00       SSTACK  SPACE            SSTACK_SIZE
+   32 00000100         SP_INIT
+   33 00000100         ;Variables go here
+   34 00000100 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00       RAM_Data
+                               SPACE            64          ;reserve space for 
+                                                            64 variables @ labe
+                                                            l Ram_Data
+   35 00000140         
+   36 00000140         ;*******************************************************
+                       ***************
+   37 00000140         ;Program
+   38 00000140         ;Linker requires Reset_Handler
+   39 00000140                 AREA             StudentCode,CODE,READONLY
+   40 00000000                 ENTRY
+   41 00000000                 EXPORT           Reset_Handler
+   42 00000000         
+   43 00000000         Reset_Handler
+   44 00000000 B672            CPSID            I           ;Mask interrupts
+   45 00000002         ; DISABLE INTERRUPTS
+   46 00000002 480C            LDR              R0, =ICER   ;R0 = &ICER
+   47 00000004 2100            MOVS             R1, #0      ; R1 = 0
+
+
+
+ARM Macro Assembler    Page 5 Lab 4 Exercise 3 Writing Memory Access Instructions
+
+
+   48 00000006 43C9            MVNS             R1, R1      ; R1 = 0xFFFFFFFF
+   49 00000008 6001            STR              R1, [R0, #0] 
+                                                            ; ICER = 0xFFFFFFFF
+                                                            
+   50 0000000A         ; INIT STACK POINTER
+   51 0000000A 480B            LDR              R0, =SP_INIT 
+                                                            ; load base address
+                                                            
+   52 0000000C 4685            MOV              SP, R0      ; set SP to base ad
+                                                            dress
+   53 0000000E         ;*******************************************************
+                       ***************
+   54 0000000E         ;*******************************************************
+                       ***************
+   55 0000000E         ;*******************************************************
+                       ***************
+   56 0000000E         Main
+   57 0000000E         ; INSERT STUDENT CODE HERE
+   58 0000000E         ; Start Task B: Add loads here
+   59 0000000E 480B            LDR              R0, =ROM_Data
+   60 00000010 490B            LDR              R1, =0x0
+   61 00000012 4A0C            LDR              R2, =0x4
+   62 00000014         
+   63 00000014 4B0C            LDR              R3, =0x8
+   64 00000016 6804            LDR              R4, [R0]
+   65 00000018 5A85            LDRH             R5, [R0, R2]
+   66 0000001A 56C6            LDRSB            R6, [R0, R3]
+   67 0000001C         
+   68 0000001C         
+   69 0000001C         
+   70 0000001C         ; Start Task C: Add loads and stores and move here
+   71 0000001C 4F0B            LDR              R7, =RAM_Data
+   72 0000001E 703E            STRB             R6, [R7]
+   73 00000020 80BD            STRH             R5, [R7, #4]
+   74 00000022 4634            MOV              R4, R6
+   75 00000024 60BC            STR              R4, [R7, #8]
+   76 00000026         
+   77 00000026         
+   78 00000026         ; Leave the next two lines at the end of all Main code
+   79 00000026 E7FE            B                .
+   80 00000028                 ALIGN
+   81 00000028         
+   82 00000028         ;*******************************************************
+                       ***************
+   83 00000028         ;ROM Constants go below
+   84 00000028         ;If your program has no constants, omit the section to a
+                       void a warning
+   85 00000028         ;*******************************************************
+                       ***************
+   86 00000028         ROM_Data                             ;address label for 
+                                                            constants stored in
+                                                             ROM
+   87 00000028         ; INSERT CONSTANT DIRECTIVES HERE
+   88 00000028 AABBCCDD        DCD              0xAABBCCDD
+   89 0000002C 12345678        DCD              0x12345678
+   90 00000030 F0E1D2C3        DCD              0xF0E1D2C3
+   91 00000034                 ALIGN                        ; NEEDED AFTER CONS
+                                                            TANTS ARE DECLARED
+   92 00000034                 END
+
+
+
+ARM Macro Assembler    Page 6 Lab 4 Exercise 3 Writing Memory Access Instructions
+
+
+              E000E180 
+              00000000 
+              00000000 
+              00000000 
+              00000004 
+              00000008 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --apcs=inter
+work --depend=.\objects\main.d -o.\objects\main.o -IC:\Programs\Keil_v5\ARM\PAC
+K\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include --predefine="__EVAL SETA 1" --pre
+define="__UVISION_VERSION SETA 535" --predefine="MKL25Z128xxx4 SETA 1" --list=.
+\listings\main.lst main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 21 in file main.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 23 in file main.s
+   Uses
+      At line 22 in file main.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RAM 00000000
+
+Symbol: RAM
+   Definitions
+      At line 29 in file main.s
+   Uses
+      None
+Comment: RAM unused
+RAM_Data 00000100
+
+Symbol: RAM_Data
+   Definitions
+      At line 34 in file main.s
+   Uses
+      At line 71 in file main.s
+Comment: RAM_Data used once
+SP_INIT 00000100
+
+Symbol: SP_INIT
+   Definitions
+      At line 32 in file main.s
+   Uses
+      At line 24 in file main.s
+      At line 51 in file main.s
+
+SSTACK 00000000
+
+Symbol: SSTACK
+   Definitions
+      At line 31 in file main.s
+   Uses
+      None
+Comment: SSTACK unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Main 0000000E
+
+Symbol: Main
+   Definitions
+      At line 56 in file main.s
+   Uses
+      None
+Comment: Main unused
+ROM_Data 00000028
+
+Symbol: ROM_Data
+   Definitions
+      At line 86 in file main.s
+   Uses
+      At line 59 in file main.s
+Comment: ROM_Data used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 43 in file main.s
+   Uses
+      At line 25 in file main.s
+      At line 41 in file main.s
+
+StudentCode 00000000
+
+Symbol: StudentCode
+   Definitions
+      At line 39 in file main.s
+   Uses
+      None
+Comment: StudentCode unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+ICER E000E180
+
+Symbol: ICER
+   Definitions
+      At line 17 in file main.s
+   Uses
+      At line 46 in file main.s
+Comment: ICER used once
+SSTACK_SIZE 00000100
+
+Symbol: SSTACK_SIZE
+   Definitions
+      At line 15 in file main.s
+   Uses
+      At line 31 in file main.s
+Comment: SSTACK_SIZE used once
+VECTOR_SIZE 00000004
+
+Symbol: VECTOR_SIZE
+   Definitions
+      At line 13 in file main.s
+   Uses
+      At line 26 in file main.s
+Comment: VECTOR_SIZE used once
+VECTOR_TABLE_SIZE 000000C0
+
+Symbol: VECTOR_TABLE_SIZE
+   Definitions
+      At line 12 in file main.s
+   Uses
+      At line 26 in file main.s
+Comment: VECTOR_TABLE_SIZE used once
+4 symbols
+349 symbols in table

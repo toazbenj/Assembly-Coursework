@@ -1,0 +1,485 @@
+
+
+
+ARM Macro Assembler    Page 1 Assembly Guide
+
+
+    1 00000000                 TTL              Assembly Guide
+    2 00000000         ;*******************************************************
+                       ********
+    3 00000000         ;First exercise, lab 4  (What does the program
+    4 00000000         ;do?)  
+    5 00000000         ;*******************************************************
+                       ********
+    6 00000000         ;Assembler directives
+    7 00000000                 THUMB
+    8 00000000         ;*******************************************************
+                       ********
+    9 00000000         ;EQUates
+   10 00000000         ;Vectors
+   11 00000000 000000C0 
+                       VECTOR_TABLE_SIZE
+                               EQU              0x000000C0  ;KL25Z
+   12 00000000 00000004 
+                       VECTOR_SIZE
+                               EQU              4           ;Bytes per vector
+   13 00000000         ;Memory
+   14 00000000 00000100 
+                       SSTACK_SIZE
+                               EQU              0x00000100
+   15 00000000         ;NVIC
+   16 00000000 E000E180 
+                       ICER    EQU              0xE000E180
+   17 00000000         ;*******************************************************
+                       ***************
+   18 00000000         ;Vector Table Mapped to Address 0 at Reset
+   19 00000000         ;Linker requires __Vectors to be exported
+   20 00000000                 AREA             RESET, DATA, READONLY
+   21 00000000                 EXPORT           __Vectors
+   22 00000000         __Vectors
+   23 00000000 00000000        DCD              SP_INIT     ;stack pointer valu
+                                                            e when stack is emp
+                                                            ty
+   24 00000004 00000000        DCD              Reset_Handler ;reset vector
+   25 00000008 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 2 Assembly Guide
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00               SPACE            (VECTOR_TABLE_SIZE - (2 * VECTO
+R_SIZE))
+   26 000000C0                 ALIGN
+   27 000000C0         ;*******************************************************
+                       ***************
+   28 000000C0                 AREA             RAM,DATA,READWRITE
+   29 00000000         ;Allocate system stack
+   30 00000000 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 3 Assembly Guide
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 4 Assembly Guide
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00       SSTACK  SPACE            SSTACK_SIZE
+   31 00000100         SP_INIT
+   32 00000100         ;Variables go here
+   33 00000100 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00       RAM_Data
+                               SPACE            64          ;reserve space for 
+                                                            64 variables @ labe
+                                                            l Ram_Data
+   34 00000140         
+   35 00000140         ;*******************************************************
+                       ***************
+   36 00000140         ;Program
+   37 00000140         ;Linker requires Reset_Handler
+   38 00000140                 AREA             StudentCode,CODE,READONLY
+   39 00000000                 ENTRY
+   40 00000000                 EXPORT           Reset_Handler
+   41 00000000         
+   42 00000000         Reset_Handler
+   43 00000000 B672            CPSID            I           ;Mask interrupts
+   44 00000002         ; DISABLE INTERRUPTS
+   45 00000002 4808            LDR              R0, =ICER   ;R0 = &ICER
+   46 00000004 2100            MOVS             R1, #0      ; R1 = 0
+   47 00000006 43C9            MVNS             R1, R1      ; R1 = 0xFFFFFFFF
+   48 00000008 6001            STR              R1, [R0, #0] 
+                                                            ; ICER = 0xFFFFFFFF
+                                                            
+
+
+
+ARM Macro Assembler    Page 5 Assembly Guide
+
+
+   49 0000000A         ; INIT STACK POINTER
+   50 0000000A 4807            LDR              R0, =SP_INIT 
+                                                            ; load base address
+                                                            
+   51 0000000C 4685            MOV              SP, R0      ; set SP to base ad
+                                                            dress
+   52 0000000E         ;*******************************************************
+                       ***************
+   53 0000000E         ;*******************************************************
+                       ***************
+   54 0000000E         ;*******************************************************
+                       ***************
+   55 0000000E         Main
+   56 0000000E         ; INSERT STUDENT CODE HERE
+   57 0000000E 4802            LDR              R0, BDAY
+   58 00000010 4902            LDR              R1, BMONTH
+   59 00000012 4A03            LDR              R2, BYEAR
+   60 00000014         
+   61 00000014         
+   62 00000014         ; Leave the next two lines at the end of all Main code
+   63 00000014 E7FE            B                .
+   64 00000016 00 00           ALIGN
+   65 00000018         
+   66 00000018         ;*******************************************************
+                       ***************
+   67 00000018         ;ROM Constants go below
+   68 00000018         ;If your program has no constants, omit the section to a
+                       void a warning
+   69 00000018         ;*******************************************************
+                       ***************
+   70 00000018         ROM_Data                             ;address label for 
+                                                            constants stored in
+                                                             ROM
+   71 00000018         
+   72 00000018         ; INSERT CONSTANT DIRECTIVES HERE
+   73 00000018 00000008 
+                       BDAY    DCD              0x8
+   74 0000001C 00000009 
+                       BMONTH  DCD              0x9
+   75 00000020 000007D1 
+                       BYEAR   DCD              0x7D1
+   76 00000024         
+   77 00000024                 ALIGN                        ; NEEDED AFTER CONS
+                                                            TANTS ARE DECLARED
+   78 00000024                 END
+              E000E180 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --apcs=inter
+work --depend=.\objects\main.d -o.\objects\main.o -IC:\Programs\Keil_v5\ARM\PAC
+K\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include --predefine="__EVAL SETA 1" --pre
+define="__UVISION_VERSION SETA 535" --predefine="MKL25Z128xxx4 SETA 1" --list=.
+\listings\main.lst main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 20 in file main.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 22 in file main.s
+   Uses
+      At line 21 in file main.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RAM 00000000
+
+Symbol: RAM
+   Definitions
+      At line 28 in file main.s
+   Uses
+      None
+Comment: RAM unused
+RAM_Data 00000100
+
+Symbol: RAM_Data
+   Definitions
+      At line 33 in file main.s
+   Uses
+      None
+Comment: RAM_Data unused
+SP_INIT 00000100
+
+Symbol: SP_INIT
+   Definitions
+      At line 31 in file main.s
+   Uses
+      At line 23 in file main.s
+      At line 50 in file main.s
+
+SSTACK 00000000
+
+Symbol: SSTACK
+   Definitions
+      At line 30 in file main.s
+   Uses
+      None
+Comment: SSTACK unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+BDAY 00000018
+
+Symbol: BDAY
+   Definitions
+      At line 73 in file main.s
+   Uses
+      At line 57 in file main.s
+Comment: BDAY used once
+BMONTH 0000001C
+
+Symbol: BMONTH
+   Definitions
+      At line 74 in file main.s
+   Uses
+      At line 58 in file main.s
+Comment: BMONTH used once
+BYEAR 00000020
+
+Symbol: BYEAR
+   Definitions
+      At line 75 in file main.s
+   Uses
+      At line 59 in file main.s
+Comment: BYEAR used once
+Main 0000000E
+
+Symbol: Main
+   Definitions
+      At line 55 in file main.s
+   Uses
+      None
+Comment: Main unused
+ROM_Data 00000018
+
+Symbol: ROM_Data
+   Definitions
+      At line 70 in file main.s
+   Uses
+      None
+Comment: ROM_Data unused
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 42 in file main.s
+   Uses
+      At line 24 in file main.s
+      At line 40 in file main.s
+
+StudentCode 00000000
+
+Symbol: StudentCode
+   Definitions
+      At line 38 in file main.s
+   Uses
+      None
+Comment: StudentCode unused
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+ICER E000E180
+
+Symbol: ICER
+   Definitions
+      At line 16 in file main.s
+   Uses
+      At line 45 in file main.s
+Comment: ICER used once
+SSTACK_SIZE 00000100
+
+Symbol: SSTACK_SIZE
+   Definitions
+      At line 14 in file main.s
+   Uses
+      At line 30 in file main.s
+Comment: SSTACK_SIZE used once
+VECTOR_SIZE 00000004
+
+Symbol: VECTOR_SIZE
+   Definitions
+      At line 12 in file main.s
+   Uses
+      At line 25 in file main.s
+Comment: VECTOR_SIZE used once
+VECTOR_TABLE_SIZE 000000C0
+
+Symbol: VECTOR_TABLE_SIZE
+   Definitions
+      At line 11 in file main.s
+   Uses
+      At line 25 in file main.s
+Comment: VECTOR_TABLE_SIZE used once
+4 symbols
+352 symbols in table
