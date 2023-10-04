@@ -1,0 +1,557 @@
+
+
+
+ARM Macro Assembler    Page 1 Lab 5 Exercise 2 Writing Assembly Instructions
+
+
+    1 00000000                 TTL              Lab 5 Exercise 2 Writing Assemb
+ly Instructions
+    2 00000000         ;*******************************************************
+                       ********
+    3 00000000         ;This file provides some pre-defined assembly instructio
+                       ns that
+    4 00000000         ;students can add to in order to perform simple assembly
+                        tasks.
+    5 00000000         ; //By A. Mason, Aug 2017//
+    6 00000000         ;*******************************************************
+                       ********
+    7 00000000         ;Assembler directives
+    8 00000000                 THUMB
+    9 00000000         ;*******************************************************
+                       ********
+   10 00000000         ;EQUates
+   11 00000000         ;Vectors
+   12 00000000 000000C0 
+                       VECTOR_TABLE_SIZE
+                               EQU              0x000000C0  ;KL25Z
+   13 00000000 00000004 
+                       VECTOR_SIZE
+                               EQU              4           ;Bytes per vector
+   14 00000000         ;Memory
+   15 00000000 00000100 
+                       SSTACK_SIZE
+                               EQU              0x00000100
+   16 00000000         ;NVIC
+   17 00000000 E000E180 
+                       ICER    EQU              0xE000E180
+   18 00000000         ;*******************************************************
+                       ***************
+   19 00000000         ;Vector Table Mapped to Address 0 at Reset
+   20 00000000         ;Linker requires __Vectors to be exported
+   21 00000000                 AREA             RESET, DATA, READONLY
+   22 00000000                 EXPORT           __Vectors
+   23 00000000         __Vectors
+   24 00000000 00000000        DCD              SP_INIT     ;stack pointer valu
+                                                            e when stack is emp
+                                                            ty
+   25 00000004 00000000        DCD              Reset_Handler ;reset vector
+   26 00000008 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 2 Lab 5 Exercise 2 Writing Assembly Instructions
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00               SPACE            (VECTOR_TABLE_SIZE - (2 * VECTO
+R_SIZE))
+   27 000000C0                 ALIGN
+   28 000000C0         ;*******************************************************
+                       ***************
+   29 000000C0                 AREA             RAM,DATA,READWRITE
+   30 00000000         ;Allocate system stack
+   31 00000000 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 3 Lab 5 Exercise 2 Writing Assembly Instructions
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 4 Lab 5 Exercise 2 Writing Assembly Instructions
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00       SSTACK  SPACE            SSTACK_SIZE
+   32 00000100         SP_INIT
+   33 00000100         ;Variables go here
+   34 00000100 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00       RAM_Data
+                               SPACE            64          ;reserve space for 
+                                                            64 variables @ labe
+                                                            l Ram_Data
+   35 00000140         
+   36 00000140         ;*******************************************************
+                       ***************
+   37 00000140         ;Program
+   38 00000140         ;Linker requires Reset_Handler
+   39 00000140                 AREA             StudentCode,CODE,READONLY
+   40 00000000                 ENTRY
+   41 00000000                 EXPORT           Reset_Handler
+   42 00000000         
+   43 00000000         Reset_Handler
+   44 00000000 B672            CPSID            I           ;Mask interrupts
+   45 00000002         ; DISABLE INTERRUPTS
+   46 00000002 4812            LDR              R0, =ICER   ;R0 = &ICER
+   47 00000004 2100            MOVS             R1, #0      ; R1 = 0
+
+
+
+ARM Macro Assembler    Page 5 Lab 5 Exercise 2 Writing Assembly Instructions
+
+
+   48 00000006 43C9            MVNS             R1, R1      ; R1 = 0xFFFFFFFF
+   49 00000008 6001            STR              R1, [R0, #0] 
+                                                            ; ICER = 0xFFFFFFFF
+                                                            
+   50 0000000A         ; INIT STACK POINTER
+   51 0000000A 4811            LDR              R0, =SP_INIT 
+                                                            ; load base address
+                                                            
+   52 0000000C 4685            MOV              SP, R0      ; set SP to base ad
+                                                            dress
+   53 0000000E         
+   54 0000000E         ;*******************************************************
+                       ***************
+   55 0000000E         ;*Top of User Code**************************************
+                       ***************
+   56 0000000E         ;*******************************************************
+                       ***************
+   57 0000000E         Main
+   58 0000000E         ; Load constants
+   59 0000000E 4811            LDR              R0, =0
+   60 00000010 4910            LDR              R1, =0x0
+   61 00000012 4A11            LDR              R2, =0x1
+   62 00000014 4F11            LDR              R7, =RAM_Data
+   63 00000016         
+   64 00000016         
+   65 00000016         ; Start Task B: Add store below
+   66 00000016         another
+   67 00000016 1D09            ADDS             R1, R1, #4  ;add 4 to existing 
+                                                            value in R1
+   68 00000018 2910            CMP              R1, #16     ;CoMPare: test if v
+                                                            alue in R1 = 16
+   69 0000001A D1FC            BNE              another     ;Branch to 'another
+                                                            ' if R1 Not Equal t
+                                                            o 16, else continue
+                                                            
+   70 0000001C 6039            STR              R1, [R7]
+   71 0000001E         
+   72 0000001E         ; Start Task C
+   73 0000001E         ; uses R2 as mask value and R1 for temporary storage of 
+                       bit-manipulated result
+   74 0000001E         ;Task C1 -bit set: STUDENTS add 1 store to [RAM_Data+4]
+   75 0000001E 490D            LDR              R1, =0x0    ;reset R1 to 0   
+   76 00000020 6079            STR              R1, [R7,#4] ;initilize [RAM_Dat
+                                                            a+4]
+   77 00000022         loop1
+   78 00000022 607A            STR              R2, [R7, #4]
+   79 00000024         ;ADDS R7, #4
+   80 00000024 0052            LSLS             R2, #1      ;shift mask bit to 
+                                                            left by 1
+   81 00000026 D5FC            BPL              loop1       ;Branch to 'loop1' 
+                                                            if R2 is PLus (posi
+                                                            tive), ie until mas
+                                                            k bit shifts to bit
+                                                            -31, else contin
+   82 00000028         ;LDR  R7, =RAM_Data; RESET R7
+   83 00000028         
+   84 00000028         ;Task C2 -bit set with read-modify-write: STUDENTS add 1
+                        load and 1 store using [RAM_Data+8]
+   85 00000028 4A0B            LDR              R2, =0x1    ;reset R2 to 1
+
+
+
+ARM Macro Assembler    Page 6 Lab 5 Exercise 2 Writing Assembly Instructions
+
+
+   86 0000002A 490A            LDR              R1, =0x0    ;reset R1 to 0   
+   87 0000002C 60B9            STR              R1, [R7,#8] ;initilize [RAM_Dat
+                                                            a+8]
+   88 0000002E         loop2
+   89 0000002E         ;your load goes here
+   90 0000002E 68B9            LDR              R1, [R7, #8]
+   91 00000030 4311            ORRS             R1, R1, R2  ;bit set R1 with ma
+                                                            sk in R2
+   92 00000032         
+   93 00000032         ;your store goes here
+   94 00000032 60B9            STR              R1, [R7, #8]
+   95 00000034 0052            LSLS             R2, #1      ;shift mask bit to 
+                                                            left by 1
+   96 00000036 D5FA            BPL              loop2       ;Branch to 'loop2' 
+                                                            if R2 is PLus (posi
+                                                            tive), ie until mas
+                                                            k bit shifts to bit
+                                                            -31, else continue
+   97 00000038         
+   98 00000038         ;Task C3 -bit clear: STUDENTS add 1 load and 1 store usi
+                       ng [RAM_Data+12]
+   99 00000038 4A07            LDR              R2, =0x1    ;reset R2 to 1
+  100 0000003A 4909            LDR              R1, =0xFFFFFFFF 
+                                                            ;reset R1 to all 1s
+                                                            
+  101 0000003C 60F9            STR              R1, [R7,#12] ;initilize [RAM_Da
+                                                            ta+12]
+  102 0000003E         
+  103 0000003E         
+  104 0000003E         loop3
+  105 0000003E         ;load goes here
+  106 0000003E 68F9            LDR              R1, [R7, #12]
+  107 00000040 4391            BICS             R1, R1, R2  ;bit clear R1 with 
+                                                            mask in R2
+  108 00000042         
+  109 00000042         ;store goes here
+  110 00000042 60F9            STR              R1, [R7, #12]
+  111 00000044 0052            LSLS             R2, #1      ;shift mask bit to 
+                                                            left by 1
+  112 00000046 D5FA            BPL              loop3       ;Branch to 'loop3' 
+                                                            if R2 is PLus (posi
+                                                            tive), ie until mas
+                                                            k bit shifts to bit
+                                                            -31, else continue
+  113 00000048         
+  114 00000048         ; Leave the next two lines at the end of all Main code
+  115 00000048 E7FE            B                .
+  116 0000004A 00 00           ALIGN
+  117 0000004C                 END
+              E000E180 
+              00000000 
+              00000000 
+              00000001 
+              00000000 
+              FFFFFFFF 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --apcs=inter
+work --depend=.\main.d -o.\main.o -IC:\Programs\Keil_v5\ARM\PACK\Keil\Kinetis_K
+Lxx_DFP\1.15.0\Device\Include --predefine="__EVAL SETA 1" --predefine="__UVISIO
+N_VERSION SETA 535" --predefine="MKL25Z128xxx4 SETA 1" --list=.\main.lst main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 21 in file main.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 23 in file main.s
+   Uses
+      At line 22 in file main.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RAM 00000000
+
+Symbol: RAM
+   Definitions
+      At line 29 in file main.s
+   Uses
+      None
+Comment: RAM unused
+RAM_Data 00000100
+
+Symbol: RAM_Data
+   Definitions
+      At line 34 in file main.s
+   Uses
+      At line 62 in file main.s
+Comment: RAM_Data used once
+SP_INIT 00000100
+
+Symbol: SP_INIT
+   Definitions
+      At line 32 in file main.s
+   Uses
+      At line 24 in file main.s
+      At line 51 in file main.s
+
+SSTACK 00000000
+
+Symbol: SSTACK
+   Definitions
+      At line 31 in file main.s
+   Uses
+      None
+Comment: SSTACK unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Main 0000000E
+
+Symbol: Main
+   Definitions
+      At line 57 in file main.s
+   Uses
+      None
+Comment: Main unused
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 43 in file main.s
+   Uses
+      At line 25 in file main.s
+      At line 41 in file main.s
+
+StudentCode 00000000
+
+Symbol: StudentCode
+   Definitions
+      At line 39 in file main.s
+   Uses
+      None
+Comment: StudentCode unused
+another 00000016
+
+Symbol: another
+   Definitions
+      At line 66 in file main.s
+   Uses
+      At line 69 in file main.s
+Comment: another used once
+loop1 00000022
+
+Symbol: loop1
+   Definitions
+      At line 77 in file main.s
+   Uses
+      At line 81 in file main.s
+Comment: loop1 used once
+loop2 0000002E
+
+Symbol: loop2
+   Definitions
+      At line 88 in file main.s
+   Uses
+      At line 96 in file main.s
+Comment: loop2 used once
+loop3 0000003E
+
+Symbol: loop3
+   Definitions
+      At line 104 in file main.s
+   Uses
+      At line 112 in file main.s
+Comment: loop3 used once
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+ICER E000E180
+
+Symbol: ICER
+   Definitions
+      At line 17 in file main.s
+   Uses
+      At line 46 in file main.s
+Comment: ICER used once
+SSTACK_SIZE 00000100
+
+Symbol: SSTACK_SIZE
+   Definitions
+      At line 15 in file main.s
+   Uses
+      At line 31 in file main.s
+Comment: SSTACK_SIZE used once
+VECTOR_SIZE 00000004
+
+Symbol: VECTOR_SIZE
+   Definitions
+      At line 13 in file main.s
+   Uses
+      At line 26 in file main.s
+Comment: VECTOR_SIZE used once
+VECTOR_TABLE_SIZE 000000C0
+
+Symbol: VECTOR_TABLE_SIZE
+   Definitions
+      At line 12 in file main.s
+   Uses
+      At line 26 in file main.s
+Comment: VECTOR_TABLE_SIZE used once
+4 symbols
+352 symbols in table

@@ -1,0 +1,513 @@
+
+
+
+ARM Macro Assembler    Page 1 Logic & Arithmetic Exercise   ;Name of program
+
+
+    1 00000000                 TTL              Logic & Arithmetic Exercise 
+                                                            ;Name of program
+    2 00000000         ;*******************************************************
+                       ********
+    3 00000000         ;Logic_arithmetic exercise starter file  
+    4 00000000         ; //By A.Mason, 2017 //
+    5 00000000         ;*******************************************************
+                       ********
+    6 00000000         ;Assembler directives
+    7 00000000                 THUMB
+    8 00000000         ;*******************************************************
+                       ********
+    9 00000000         ;EQUates
+   10 00000000         ;Vectors
+   11 00000000 000000C0 
+                       VECTOR_TABLE_SIZE
+                               EQU              0x000000C0  ;KL25Z
+   12 00000000 00000004 
+                       VECTOR_SIZE
+                               EQU              4           ;Bytes per vector
+   13 00000000         ;Memory
+   14 00000000 00000100 
+                       SSTACK_SIZE
+                               EQU              0x00000100
+   15 00000000         ;NVIC
+   16 00000000 E000E180 
+                       ICER    EQU              0xE000E180
+   17 00000000         ;*******************************************************
+                       ***************
+   18 00000000         ;Vector Table Mapped to Address 0 at Reset
+   19 00000000         ;Linker requires __Vectors to be exported
+   20 00000000                 AREA             RESET, DATA, READONLY
+   21 00000000                 EXPORT           __Vectors
+   22 00000000         __Vectors
+   23 00000000 00000000        DCD              SP_INIT     ;stack pointer valu
+                                                            e when stack is emp
+                                                            ty
+   24 00000004 00000000        DCD              Reset_Handler ;reset vector
+   25 00000008 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 2 Logic & Arithmetic Exercise   ;Name of program
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00               SPACE            (VECTOR_TABLE_SIZE - (2 * VECTO
+R_SIZE))
+   26 000000C0                 ALIGN
+   27 000000C0         ;*******************************************************
+                       ***************
+   28 000000C0                 AREA             RAM,DATA,READWRITE
+   29 00000000         ;Allocate system stack
+   30 00000000 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 3 Logic & Arithmetic Exercise   ;Name of program
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+
+
+
+ARM Macro Assembler    Page 4 Logic & Arithmetic Exercise   ;Name of program
+
+
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00       SSTACK  SPACE            SSTACK_SIZE
+   31 00000100         SP_INIT
+   32 00000100         ;Variables go here
+   33 00000100         
+   34 00000100         
+   35 00000100         ;*******************************************************
+                       ***************
+   36 00000100         ;Program
+   37 00000100         ;Linker requires Reset_Handler
+   38 00000100                 AREA             StudentCode,CODE,READONLY
+   39 00000000                 ENTRY
+   40 00000000                 EXPORT           Reset_Handler
+   41 00000000         
+   42 00000000         Reset_Handler
+   43 00000000 B672            CPSID            I           ;Mask interrupts
+   44 00000002         ; DISABLE INTERRUPTS
+   45 00000002 4812            LDR              R0, =ICER   ;R0 = &ICER
+   46 00000004 2100            MOVS             R1, #0      ; R1 = 0
+   47 00000006 43C9            MVNS             R1, R1      ; R1 = 0xFFFFFFFF
+   48 00000008 6001            STR              R1, [R0, #0] 
+                                                            ; ICER = 0xFFFFFFFF
+                                                            
+   49 0000000A         ; INIT STACK POINTER
+   50 0000000A 4811            LDR              R0, =SP_INIT 
+                                                            ; load base address
+                                                            
+   51 0000000C 4685            MOV              SP, R0      ; set SP to base ad
+                                                            dress
+   52 0000000E 2100            MOVS             R1, #0      ;clear R1
+   53 00000010 2000            MOVS             R0, #0      ;clear R0
+   54 00000012         
+   55 00000012         ;*******************************************************
+                       ***************
+   56 00000012         ;*Top of User Code**************************************
+                       ***************
+   57 00000012         ;*******************************************************
+                       ***************
+   58 00000012         ;
+   59 00000012         ;**Register assignments:
+   60 00000012         ;R0 = results register, store task results here
+   61 00000012         ;R1, R2, R3, user registers
+   62 00000012         ;R4, R5, R6, pre-set values
+   63 00000012         ;R7 = pointer to constants in ROM @ ROM_Con
+   64 00000012         ;
+   65 00000012         Main
+
+
+
+ARM Macro Assembler    Page 5 Logic & Arithmetic Exercise   ;Name of program
+
+
+   66 00000012 4F10            LDR              R7, =ROM_Con ;load address of R
+                                                            OM constants to R7
+   67 00000014         ;load constant values into R6:4. binary equivalent shown
+                        in comment
+   68 00000014 4E10            LDR              R6, =0xFFFF7310 ;1111.1111.1111
+                                                            .1111.0111.0011.000
+                                                            1.0000 
+   69 00000016 4D11            LDR              R5, =0xAAAA5555 ;1010.1010.1010
+                                                            .1010.0101.0101.010
+                                                            1.0101 
+   70 00000018 4C11            LDR              R4, =0x1E1E1E1E ;0001.1110.0001
+                                                            .1110.0001.1110.000
+                                                            1.1110
+   71 0000001A         
+   72 0000001A         ;add student code to the appropriate 'TASK' section belo
+                       w. always store task result in R0
+   73 0000001A         ;TASK C
+   74 0000001A 43E8            MVNS             R0, R5      ; inverse of R5 in 
+                                                            the results registe
+                                                            r (R0)
+   75 0000001C 4911            LDR              R1, =0xFFFFFFFF
+   76 0000001E         
+   77 0000001E 4608            MOV              R0, R1      ; R0 SUBS FOR R1
+   78 00000020 4060            EORS             R0, R4      ; R0 DESTINATION AN
+                                                            D ARGUMENT
+   79 00000022         ;TASK D
+   80 00000022 4608            MOV              R0, R1
+   81 00000024 43B0            BICS             R0, R6
+   82 00000026 4320            ORRS             R0, R4
+   83 00000028         ;TASK E
+   84 00000028 783C            LDRB             R4, [R7]
+   85 0000002A 1CE0            ADDS             R0, R4, #3
+   86 0000002C         ;TASK F
+   87 0000002C 4628            MOV              R0, R5
+   88 0000002E 4A0E            LDR              R2, =0x333333
+   89 00000030 1A80            SUBS             R0, R2
+   90 00000032         ;TASK G
+   91 00000032 687A            LDR              R2, [R7, #4]
+   92 00000034 4296            CMP              R6, R2
+   93 00000036         ;TASK H
+   94 00000036 68B8            LDR              R0, [R7, #8]
+   95 00000038 0100            LSLS             R0, #4
+   96 0000003A 09C0            LSRS             R0, #7
+   97 0000003C         ;TASK I
+   98 0000003C 1436            ASRS             R6, #16
+   99 0000003E         
+  100 0000003E         ;stop
+  101 0000003E E7FE            B                .           ;infinite loop
+  102 00000040                 ALIGN
+  103 00000040         ;*******************************************************
+                       ***************
+  104 00000040         ;ROM Constants go below
+  105 00000040         ;If your program has no constants, omit the section to a
+                       void a warning
+  106 00000040         ;*******************************************************
+                       ***************
+  107 00000040         ROM_Con                              ;address label for 
+                                                            constants stored in
+                                                             ROM
+
+
+
+ARM Macro Assembler    Page 6 Logic & Arithmetic Exercise   ;Name of program
+
+
+  108 00000040         
+  109 00000040 0000000E 
+                       con1    DCD              0xE
+  110 00000044 FFFF7310 
+                       con2    DCD              0xFFFF7310
+  111 00000048 01010101 
+                       con3    DCD              0x01010101
+  112 0000004C                 ALIGN                        ; NEEDED AFTER CONS
+                                                            TANTS ARE DECLARED
+  113 0000004C                 END
+              E000E180 
+              00000000 
+              00000000 
+              FFFF7310 
+              AAAA5555 
+              1E1E1E1E 
+              FFFFFFFF 
+              00333333 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --apcs=inter
+work --depend=.\objects\main.d -o.\objects\main.o -IC:\Programs\Keil_v5\ARM\PAC
+K\Keil\Kinetis_KLxx_DFP\1.15.0\Device\Include --predefine="__EVAL SETA 1" --pre
+define="__UVISION_VERSION SETA 535" --predefine="MKL25Z128xxx4 SETA 1" --list=.
+\listings\main.lst main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 20 in file main.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 22 in file main.s
+   Uses
+      At line 21 in file main.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RAM 00000000
+
+Symbol: RAM
+   Definitions
+      At line 28 in file main.s
+   Uses
+      None
+Comment: RAM unused
+SP_INIT 00000100
+
+Symbol: SP_INIT
+   Definitions
+      At line 31 in file main.s
+   Uses
+      At line 23 in file main.s
+      At line 50 in file main.s
+
+SSTACK 00000000
+
+Symbol: SSTACK
+   Definitions
+      At line 30 in file main.s
+   Uses
+      None
+Comment: SSTACK unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Main 00000012
+
+Symbol: Main
+   Definitions
+      At line 65 in file main.s
+   Uses
+      None
+Comment: Main unused
+ROM_Con 00000040
+
+Symbol: ROM_Con
+   Definitions
+      At line 107 in file main.s
+   Uses
+      At line 66 in file main.s
+Comment: ROM_Con used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 42 in file main.s
+   Uses
+      At line 24 in file main.s
+      At line 40 in file main.s
+
+StudentCode 00000000
+
+Symbol: StudentCode
+   Definitions
+      At line 38 in file main.s
+   Uses
+      None
+Comment: StudentCode unused
+con1 00000040
+
+Symbol: con1
+   Definitions
+      At line 109 in file main.s
+   Uses
+      None
+Comment: con1 unused
+con2 00000044
+
+Symbol: con2
+   Definitions
+      At line 110 in file main.s
+   Uses
+      None
+Comment: con2 unused
+con3 00000048
+
+Symbol: con3
+   Definitions
+      At line 111 in file main.s
+   Uses
+      None
+Comment: con3 unused
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+ICER E000E180
+
+Symbol: ICER
+   Definitions
+      At line 16 in file main.s
+   Uses
+      At line 45 in file main.s
+Comment: ICER used once
+SSTACK_SIZE 00000100
+
+Symbol: SSTACK_SIZE
+   Definitions
+      At line 14 in file main.s
+   Uses
+      At line 30 in file main.s
+Comment: SSTACK_SIZE used once
+VECTOR_SIZE 00000004
+
+Symbol: VECTOR_SIZE
+   Definitions
+      At line 12 in file main.s
+   Uses
+      At line 25 in file main.s
+Comment: VECTOR_SIZE used once
+VECTOR_TABLE_SIZE 000000C0
+
+Symbol: VECTOR_TABLE_SIZE
+   Definitions
+      At line 11 in file main.s
+   Uses
+      At line 25 in file main.s
+Comment: VECTOR_TABLE_SIZE used once
+4 symbols
+351 symbols in table
